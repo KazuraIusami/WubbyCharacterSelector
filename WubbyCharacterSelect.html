@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('LegoStarWars.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            height: 100vh; /* Ensure the body takes the full height of the viewport */
+            display: flex;
+            flex-direction: column; /* Updated to column layout */
+            align-items: center;
+            justify-content: center;
+        }
+
+        #header {
+            position: absolute;
+            top: 300px;
+            font-size: 56;
+			color:white;
+            font-weight: bold;
+        }
+
+        #tableContainer {
+            position: absolute;
+            bottom: 65px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 52px;
+            height: 45px;
+            border: 2px solid white; /* Set the border color to white */
+            background-color: rgba(255, 255, 255, 0.3); /* Set the background color to white with 70% opacity */
+        }
+		td:hover {
+			background-color: rgba(225, 225, 225, 0.5); /* Set the background color to white with 70% opacity */
+		}
+    </style>
+   
+    <title>Wubby's Character Select</title>
+</head>
+<body>
+
+<div id="header">Character Name</div>
+<div id="tableContainer"></div>
+
+<script>
+    // Create a table element
+    var table = document.createElement("table");
+
+    // Define the array of names
+    var names = [
+        ["classic wubby", "tan wubby", "handsome wubby", "long neck wubby", "game show host wubby", "tiny eyes wubby", "cool wubby", "sub train wubby", "mr beast wubby", "toad wubby", "metazoo goblin", "pope wubby", "burger andy", "clown wubby", "8 bit wubby", "reaper wubby", "young cheesy wubby", "pool wubby", "mech suit wubby", "blue wubby", "bank robber wubby", "boo wubby", "anti-wubby", "santa wubby", "sonic wubby", "retard wubby", "denise (shaker)", "denise (mouse pad)"],
+        ["firefighter wubby", "blind wubby", "chaplin wubby", "wubby7", "sangria wubby", "pink hair wubby", "powder wubby", "star trek wubby (yellow)", "star trek wubby (red)", "end card wubby", "totoro wubby", "alluux", "green suit alluux", "mrs claus alluux", "nun alluux", "little red riding hood alluux", "face paint alluux", "bear ears alluux", "green screen alluux", "chaplin alluux", "star trek alluux", "toilet paper alluux", "peanut", "young nut", "cowboy peanut", "star trek peanut", "overworked peanut", "dancing boy peanut"],
+        ["wubbys dad", "chef wubbys dad", "escaped prisoner wubbys dad", "young wubbys dad", "chinese wubbys dad", "maiya", "cheerleader maiya", "buisiness suit maiya", "booty", "pimp booty", "referee booty", "scuba booty", "king booty", "booty downer", "carlos", "green screen carlos", "blue carlos", "star trek carlos", "pie face carlos", "yeb yungelderberry", "barnicle boy yeb", "adri", "pirate adri", "sonic adri", "TT", "ash", "klingon ash", "dj"],
+        ["kevvywevy", "costume contest winner 2022", "costume contest winner 2023", "thumb thumb", "the masked menace", "sneesnaw", "sneesnaw as denise", "sneesnaw as wubbys dad", "ham", "wasted ham", "wendy", "face paint wendy", "kenroy", "graduation kenroy", "amouranth", "metazoo mike", "shit pants guy", "maid", "war victim maid", "doja cat (moo)", "extra emily", "mizkif", "charlie moist critical", "nilered", "alien", "ginger bread man", "simplicio", "nani"],
+        ["Willneff", "papapoob", "general sam", "codemiko", "codemiko (true form)", "ninja turtle codemiko", "pussy farts girl", "samurai cop", "samurai cops partner", "neil breen", "ed", "glorg", "mg money tax guy", "willro", "jasmine", "gino", "autistic tunnel girl", "tyler", "tylers dad", "tylers dad (shave)", "amber lynnreid", "the prophet of drip", "gus johnson", "mr beast", "minx", "ninja turtle minx", "plumber", "nuka zeus"],
+        ["david", "johnathan mouseman", "chad tank instructor", "keebs", "short man", "cyanfen", "dwayne the rock lobster", "jschlatt", "smoking mouse", "amanda", "ragavan", "bruce the shark", "dan clancy", "axis denied", "cg alien", "debbie", "homeless lamp man", "lamp worshiper", "old shit eyes", "asian man", "goth asian man", "tay zonday", "gotdrums", "goat man", "the goat", "old indian man singing baby", "sonic and his stinky feet", "fortnite fish skin"],
+        ["ethan", "trisha", "clown poledancer girl", "j mousemann", "lego loss prevention officer", "a handbag?", "trigger fish", "robert e.t.", "big E goes to work", "boobi the barber", "dominique", "mulan", "chev", "lizard", "HP", "hawaiian HP", "spock HP", "cheeto", "halloumi", "remi", "rap cod", "pool guy", "vampire girl", "gobi", "it takes two guy", "it takes two girl", "jamie", "lynn"],
+        ["farquaad", "dewey", "skeeter (black)", "life with mak", "bernie mac", "masked kidnapper", "jiggly puff", "susu mom", "lil lunchbox", "sax woman", "vegetable man", "jesus christ", "olimar", "red pikmin rip", "alright", "sweater cat", "Hehe", "bionicle", "vert wheeler", "its time to kick off shreek week", "caroline konstar", "pitbull", "stevenson", "lee R", "zorblorg", "dracula flow", "blue ghost lizard", "blue ghost cheeto"]
+    ];
+
+    // Create a header element
+    var header = document.getElementById("header");
+
+    // Create a table with 8 rows
+    for (var i = 0; i < 8; i++) {
+        // Create a row element
+        var row = document.createElement("tr");
+
+        // Create 28 cells in each row
+        for (var j = 0; j < 28; j++) {
+            // Create a cell element
+            var cell = document.createElement("td");
+
+            // Add event listener for mouseover
+            (function (name) {
+                cell.addEventListener('mouseover', function() {
+                    header.textContent = name; // Change the header text to the name when the cell is hovered
+                    console.log(name); // Log the name when the cell is hovered
+                });
+            })(names[i][j]);
+
+            // Append the cell to the row
+            row.appendChild(cell);
+        }
+
+        // Append the row to the table
+        table.appendChild(row);
+    }
+
+    // Append the table to the container
+    document.getElementById("tableContainer").appendChild(table);
+</script>
+
+</body>
+</html>
